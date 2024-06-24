@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=3 uid="uid://dcn13c7fnfr13"]
+
+[ext_resource type="Script" path="res://scripts/shield_enemy.gd" id="1_72g30"]
+[ext_resource type="Texture2D" uid="uid://dj0kjgy4msk01" path="res://assets/sprites/shield_enemy.png" id="2_lni6m"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xaweb"]
+radius = 13.0
+height = 50.0011
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ey1ob"]
+radius = 17.0
+height = 45.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g1mqt"]
+radius = 0.01
+
+[node name="ShieldEnemy" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 5
+mass = 5.0
+gravity_scale = 0.0
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_72g30")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_lni6m")
+
+[node name="ShieldEnemyShield" type="RigidBody2D" parent="."]
+collision_layer = 2
+collision_mask = 5
+gravity_scale = 0.0
+max_contacts_reported = 1
+contact_monitor = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShieldEnemyShield"]
+position = Vector2(0, -11)
+rotation = -1.57133
+shape = SubResource("CapsuleShape2D_xaweb")
+
+[node name="ShieldEnemyBody" type="RigidBody2D" parent="."]
+collision_layer = 2
+collision_mask = 5
+gravity_scale = 0.0
+max_contacts_reported = 1
+contact_monitor = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShieldEnemyBody"]
+position = Vector2(0, 8)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ey1ob")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_g1mqt")
+
+[connection signal="body_entered" from="ShieldEnemyBody" to="." method="_on_shield_enemy_body_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

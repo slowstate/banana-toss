@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddnh74x8d68vo"]
+
+[ext_resource type="Script" path="res://scripts/chasing_enemy.gd" id="1_rhqi0"]
+[ext_resource type="Texture2D" uid="uid://bquomd3reudyf" path="res://assets/sprites/chasing_enemy.png" id="2_8oo22"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nupcj"]
+radius = 17.0
+height = 45.0
+
+[node name="ChasingEnemy" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 5
+gravity_scale = 0.0
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_rhqi0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_8oo22")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_nupcj")
+
+[node name="MoveTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DespawnTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
+[connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]

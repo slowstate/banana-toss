@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://dm5oowtyotyrw"]
+
+[ext_resource type="Script" path="res://scripts/piercing_banana.gd" id="1_jgo44"]
+[ext_resource type="Texture2D" uid="uid://cuj26vokokwnk" path="res://assets/sprites/unripe.png" id="2_jbf6e"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3u56h"]
+radius = 4.4641
+height = 18.8564
+
+[node name="PiercingBanana" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 0
+gravity_scale = 0.0
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_jgo44")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_jbf6e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 0)
+rotation = -2.61799
+scale = Vector2(2, 2)
+shape = SubResource("CapsuleShape2D_3u56h")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

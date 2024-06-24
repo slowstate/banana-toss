@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://dvriswaocwmvh"]
+
+[ext_resource type="Texture2D" uid="uid://dccksnybwai7j" path="res://assets/sprites/enemy.png" id="1_apat1"]
+[ext_resource type="Script" path="res://scripts/Enemy.gd" id="1_lm3dp"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ga68k"]
+radius = 15.0
+height = 35.0
+
+[node name="Enemy" type="RigidBody2D"]
+collision_layer = 2
+gravity_scale = 0.0
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_lm3dp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("1_apat1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ga68k")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

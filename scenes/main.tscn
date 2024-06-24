@@ -1,0 +1,128 @@
+[gd_scene load_steps=6 format=3 uid="uid://xbdvrldxfosq"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_r561r"]
+[ext_resource type="Texture2D" uid="uid://cmyqubj3i5vxg" path="res://assets/background.jpg" id="2_0dxxy"]
+[ext_resource type="PackedScene" uid="uid://cumn1bvglakcs" path="res://scenes/banana_pile.tscn" id="4_1v7we"]
+[ext_resource type="PackedScene" uid="uid://b0217ouxef83w" path="res://scenes/player.tscn" id="5_7rfq6"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_px6yy"]
+normal = Vector2(0, 1)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_r561r")
+
+[node name="EnemySpawnTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="ScoreTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="Background" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -576.0
+offset_top = -324.0
+offset_right = 704.0
+offset_bottom = 396.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("2_0dxxy")
+metadata/_edit_use_anchors_ = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="BananaPile" parent="." instance=ExtResource("4_1v7we")]
+
+[node name="Player" parent="." instance=ExtResource("5_7rfq6")]
+collision_mask = 16
+
+[node name="UserInterface" type="Control" parent="."]
+top_level = true
+layout_mode = 3
+anchors_preset = 0
+
+[node name="ScoreLabel" type="Label" parent="UserInterface"]
+layout_mode = 0
+offset_left = -21.0
+offset_top = -322.0
+offset_right = 22.0
+offset_bottom = -299.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+text = "Score
+0"
+horizontal_alignment = 1
+
+[node name="HighScoreLabel" type="Label" parent="UserInterface"]
+layout_mode = 0
+offset_left = 492.0
+offset_top = -323.0
+offset_right = 575.0
+offset_bottom = -300.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+text = "High Score"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="UserInterface"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="RestartLabel" type="Label" parent="UserInterface"]
+layout_mode = 0
+offset_left = -272.0
+offset_top = -36.0
+offset_right = 265.0
+offset_bottom = 33.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 50
+horizontal_alignment = 1
+
+[node name="WorldBoundaries" type="Node" parent="."]
+
+[node name="WorldBoundaryTop" type="StaticBody2D" parent="WorldBoundaries"]
+position = Vector2(0, -324)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaries/WorldBoundaryTop"]
+shape = SubResource("WorldBoundaryShape2D_px6yy")
+
+[node name="WorldBoundaryRight" type="StaticBody2D" parent="WorldBoundaries"]
+position = Vector2(576, 0)
+rotation = 1.5708
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaries/WorldBoundaryRight"]
+shape = SubResource("WorldBoundaryShape2D_px6yy")
+
+[node name="WorldBoundaryBottom" type="StaticBody2D" parent="WorldBoundaries"]
+position = Vector2(0, 324)
+rotation = 3.14159
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaries/WorldBoundaryBottom"]
+shape = SubResource("WorldBoundaryShape2D_px6yy")
+
+[node name="WorldBoundaryLeft" type="StaticBody2D" parent="WorldBoundaries"]
+position = Vector2(-576, 0)
+rotation = 4.71239
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaries/WorldBoundaryLeft"]
+shape = SubResource("WorldBoundaryShape2D_px6yy")
+
+[connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="banana_pile_hit" from="BananaPile" to="." method="_on_banana_pile_banana_pile_hit"]

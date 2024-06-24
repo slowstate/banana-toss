@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cumn1bvglakcs"]
+
+[ext_resource type="Script" path="res://scripts/banana_pile.gd" id="1_2ak2v"]
+[ext_resource type="Texture2D" uid="uid://d33yis716mgtd" path="res://assets/sprites/banana_pile.png" id="1_q1hbp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nvrug"]
+radius = 25.0
+
+[node name="BananaPile" type="Area2D"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_2ak2v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("1_q1hbp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 6)
+shape = SubResource("CircleShape2D_nvrug")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

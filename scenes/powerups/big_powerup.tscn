@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://8co0hgilid7f"]
+
+[ext_resource type="Script" path="res://scripts/big_powerup.gd" id="1_a4e6w"]
+[ext_resource type="Texture2D" uid="uid://hgsnyo5qbrii" path="res://assets/sprites/giant_highland.png" id="2_kjefj"]
+[ext_resource type="Texture2D" uid="uid://bm3u15e17k0oy" path="res://assets/sprites/powerup.png" id="3_g0pq7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bc1mr"]
+radius = 15.0
+
+[node name="BigPowerup" type="Area2D"]
+collision_layer = 0
+script = ExtResource("1_a4e6w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_kjefj")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(-3, -5)
+texture = ExtResource("3_g0pq7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bc1mr")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

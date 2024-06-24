@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://0xnv5bso33w7"]
+
+[ext_resource type="Texture2D" uid="uid://cuj26vokokwnk" path="res://assets/sprites/unripe.png" id="1_5sb17"]
+[ext_resource type="Script" path="res://scripts/piercing_powerup.gd" id="1_xhqqr"]
+[ext_resource type="Texture2D" uid="uid://bm3u15e17k0oy" path="res://assets/sprites/powerup.png" id="2_f86ix"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pt7ye"]
+
+[node name="PiercingPowerup" type="Area2D"]
+collision_layer = 0
+script = ExtResource("1_xhqqr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_5sb17")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(-2, -3)
+texture = ExtResource("2_f86ix")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pt7ye")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

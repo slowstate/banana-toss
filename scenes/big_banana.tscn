@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://udpxx6n3j3y2"]
+
+[ext_resource type="Script" path="res://scripts/big_banana.gd" id="1_o1pag"]
+[ext_resource type="Texture2D" uid="uid://hgsnyo5qbrii" path="res://assets/sprites/giant_highland.png" id="2_ewgkm"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ovvwk"]
+radius = 6.94615
+height = 26.0526
+
+[node name="BigBanana" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 2
+mass = 10.0
+gravity_scale = 0.0
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_o1pag")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_ewgkm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 1)
+rotation = -2.61799
+scale = Vector2(2, 2)
+shape = SubResource("CapsuleShape2D_ovvwk")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
